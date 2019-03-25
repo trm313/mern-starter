@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>React App</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <h4>Loading...</h4>
+  <div></div>
+  <script>
+        function getParameterByName(name, url) {
+            if (!url) {
+            url = window.location.href;
+            }
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        /*
+        var token = getParameterByName('jwtToken');
+        var user = getParameterByName('userID');
+        console.log(test);
+        if (jwtToken && user) {
+            localStorage.setItem('token', token);
+            localStorage.setItem('user', user);
+            window.location = "/";
+        }*/
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('get', '/auth/user');
+        //xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.responseType = 'json';
+        xhr.addEventListener('load', () => {
+        if (xhr.status === 200) {
+            console.log(xhr.response);
+            if(xhr.response._id && xhr.response.jwtToken) {
+                localStorage.setItem('token', xhr.response.jwtToken);
+                localStorage.setItem('user', xhr.response._id);
+            }
+            //this.context.router.replace('/');
+        } else {
+            // failure
+            
+        }
+        window.location = "/";
+        });
+        xhr.send();
+  </script>
+</body>
+</html>

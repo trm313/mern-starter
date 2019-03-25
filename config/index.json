@@ -1,0 +1,6 @@
+{
+    "dbUri": "mongodb://CONNECTIONSTRING,
+    "jwtSecret": "JWTSECRET",
+    "FB_ID": "FACEBOOKID",
+    "FB_Secret": "FACEBOOKSECRET"
+}
